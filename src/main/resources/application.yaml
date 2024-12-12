@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: typical-pizzeria
@@ -14,3 +15,5 @@ spring:
 logging:
   level:
     root: ${LOGGING_LEVEL_ROOT:INFO}
+server:
+  port: 9093
