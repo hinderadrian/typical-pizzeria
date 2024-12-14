@@ -1,0 +1,19 @@
+
+spring:
+  application:
+    name: typical-pizzeria
+  jpa:
+    hibernate:
+      ddl-auto: update # Update the database schema if needed | none = no DDL manipulation
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DBNAME:database_name}?createDatabaseIfNotExist=true
+    username: ${MYSQL_USERNAME:username}
+    password: ${MYSQL_PASSWORD:password}
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+server:
+  port: 9093
