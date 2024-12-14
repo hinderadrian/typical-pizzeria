@@ -38,5 +38,4 @@ public interface OrderRepository extends ListCrudRepository<OrderEntity, Integer
 
     @Procedure(value = "take_random_pizza_order", outputParameterName = "order_taken")
     boolean saveRandomOrder(@Param("id_customer") String idCustomer, @Param("method") String method);
-
 }
