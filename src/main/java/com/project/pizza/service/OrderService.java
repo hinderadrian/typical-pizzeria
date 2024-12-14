@@ -1,6 +1,7 @@
 package com.project.pizza.service;
 
 import com.project.pizza.persistence.entity.OrderEntity;
+import com.project.pizza.persistence.projection.OrderSummary;
 import com.project.pizza.persistence.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,14 @@ public class OrderService {
         List<String> methods = Arrays.asList(DELIVERY, CARRY_OUT);
 
         return this.orderRepository.findAllByMethodIn(methods);
+    }
+
+    public List<OrderEntity> getCustomerOrders(String customerId) {
+        return this.orderRepository.findCustomerOrders(customerId);
+    }
+
+    public OrderSummary getOrderSummary(int orderId) {
+        return this.orderRepository.getOrderSummary(orderId);
     }
 
 }
