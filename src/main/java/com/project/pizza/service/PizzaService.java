@@ -3,12 +3,16 @@ package com.project.pizza.service;
 import com.project.pizza.persistence.entity.PizzaEntity;
 import com.project.pizza.persistence.repository.PizzaPagSortRepository;
 import com.project.pizza.persistence.repository.PizzaRepository;
+import com.project.pizza.service.dto.UpdatePizzaPriceDto;
+import com.project.pizza.service.exception.EmailApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +21,6 @@ public class PizzaService {
 
     private final PizzaRepository pizzaRepository;
     private final PizzaPagSortRepository pizzaPagSortRepository;
-
-
 
     @Autowired
     public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
@@ -55,6 +57,17 @@ public class PizzaService {
 
     public void deletePizzaById(int pizzaId) {
         this.pizzaRepository.deleteById(pizzaId);
+    }
+
+    //@Transactional(noRollbackFor = EmailApiException.class, propagation = Propagation.REQUIRED)
+    @Transactional
+    public void updatePizzaPrice(UpdatePizzaPriceDto pizzaPriceDto) {
+        this.pizzaRepository.updatePriceV2(pizzaPriceDto);
+        this.sendEmail();
+    }
+
+    private void sendEmail() {
+        throw new EmailApiException("Error sending email...");
     }
 
     public PizzaEntity getByName(String pizzaName) {
